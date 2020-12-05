@@ -159,7 +159,7 @@
 						</property>
 					</properties>
 					<includes>
-    					<include>com.testautomation.UIAutomation.runners.Test_ScenariosRunner</include>
+    					<include>com.tests.TestAutomatahon2020Challenge.runners.Test_ScenariosRunner</include>
     				</includes>
 					<!-- <suiteXmlFiles>
             			<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
