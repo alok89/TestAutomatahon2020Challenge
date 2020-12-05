@@ -2,12 +2,9 @@ package com.tests.TestAutomatahon2020Challenge.stepdefs;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.beans.factory.annotation.Value;
 
 import com.github.javafaker.Faker;
-import com.google.common.util.concurrent.Uninterruptibles;
 import com.tests.TestAutomatahon2020Challenge.annotations.LazyAutowired;
 import com.tests.TestAutomatahon2020Challenge.pageobjects.automatahon.FormDetailsPage;
 
@@ -45,20 +42,27 @@ public class TestFormDetails {
 	    formDetails.getAddress().setState(faker.address().state());
 	    formDetails.getAddress().setCountry("India");
 	    formDetails.getAddress().setPostalCode(faker.address().countryCode());
-	    Uninterruptibles.sleepUninterruptibly(1500, TimeUnit.MILLISECONDS);
 	    formDetails.getCalendarComponent().selectDay("10").selectMonth("March").selectYear("2005");
-	    Uninterruptibles.sleepUninterruptibly(1500, TimeUnit.MILLISECONDS);
 	    formDetails.currentWorking(false);
 	    formDetails.fileUpload(filePath);
 	}
 
 	@When("User enter the details")
 	public void user_enter_the_details() {
-	    
+		formDetails.enterName(faker.name().firstName(), faker.name().lastName());
+	    formDetails.enterMobileNo(faker.phoneNumber().phoneNumber());
+	    formDetails.getAddress().setAddressLine1(faker.address().streetName());
+	    formDetails.getAddress().setCity(faker.address().cityName());
+	    formDetails.getAddress().setState(faker.address().state());
+	    formDetails.getAddress().setCountry("India");
+	    formDetails.getAddress().setPostalCode(faker.address().countryCode());
+	    formDetails.getCalendarComponent().selectMonth("March").selectYear("2005").selectDay("10");
+	    formDetails.currentWorking(false);
+	    formDetails.fileUpload(filePath);
 	}
 
-	@Then("Form should be submitted successfully with {string} message")
-	public void form_should_be_submitted_successfully_with_message(String string) {
+	@Then("Form should be submitted successfully")
+	public void form_should_be_submitted_successfully_with_message() {
 	    formDetails.submit();
 	}
 
@@ -69,13 +73,12 @@ public class TestFormDetails {
 
 	@Then("Form should not get submitted with a message {string}")
 	public void form_should_not_get_submitted() {
-	    
-	    
+		assertThat(formDetails.mandatoryFieldMissing()).isTrue();
 	}
 
-	@When("enter wrong emailId")
-	public void enter_wrong_email_id() {
-	    
+	@When("enter wrong emailId as {string}")
+	public void enter_wrong_email_id(String emailid) {
+	    formDetails.enterEmail(emailid);
 	    
 	}
 }

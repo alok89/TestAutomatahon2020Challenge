@@ -11,7 +11,7 @@ import io.cucumber.testng.CucumberOptions.SnippetType;
 @CucumberOptions (
 		features = "classpath:features",
 		glue = "com.tests.TestAutomatahon2020Challenge",
-		tags = "@mystore",
+		tags = "@challenge3",
 		monochrome = true,
 		plugin = {"pretty", 
 				  "json:reports/cucumber.json",
